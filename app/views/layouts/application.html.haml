@@ -1,6 +1,8 @@
 !!! 5
 %html
   %head
+    %meta{:charset => 'utf-8'}
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
     %title AcademicCommunication
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -9,8 +11,33 @@
       %script{:src => 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}
       %script{:src => 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'}
   %body
-    - if flash[:notice]
-      %p.notice= flash[:notice]
-    - if flash[:alert]
-      %p.alert= flash[:alert]
-    = yield
+    .navbar.navbar-default.navbar-fixed-top{:role => 'navigation'}
+      .container
+        .navbar-header
+          %button{:type => 'button', :class => 'navbar-toggle', :'data-toggle' => 'collapse', :'data-target' => '.navbar-collapse'}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'AcademicCommunication', root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li.active= link_to 'Home', root_path
+            %li= link_to 'News', '#'
+          %ul.nav.navbar-nav.navbar-right
+            - unless current_account
+              %li= link_to 'Sign in', new_session_path(:account)
+              %li= link_to 'Sign up', new_registration_path(:account)
+            - else
+              %li= link_to current_account.email, edit_registration_path(:account)
+              %li= link_to 'Sign out', destroy_session_path(:account), method: :delete 
+    .container
+      - if flash[:notice]
+        .alert.alert-success.alert-dismissable
+          %button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert', :'aria-hidden' => 'true'} &times;
+          %p= flash[:notice]
+      - if flash[:alert]
+        .alert.alert-danger.alert-dismissable
+          %button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert', :'aria-hidden' => 'true'} &times;
+          %p= flash[:alert]
+      = yield
