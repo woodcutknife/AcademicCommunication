@@ -43,3 +43,12 @@ gem 'devise'
 
 # Use CanCan for role management
 gem 'cancan'
+
+# Use Haml as the HTML markup
+gem 'haml'
+
+# Use Cocoon to handle nested forms
+gem 'cocoon'
+
+# Use Simple Form to create forms
+gem 'simple_form'
