@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512113757) do
+ActiveRecord::Schema.define(version: 20140512133128) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 20140512113757) do
 
   add_index "contests", ["contest_category_id"], name: "index_contests_on_contest_category_id"
 
+  create_table "form_formations", force: true do |t|
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "form_formations", ["contest_id"], name: "index_form_formations_on_contest_id"
+
   create_table "pages", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -70,10 +78,40 @@ ActiveRecord::Schema.define(version: 20140512113757) do
 
   add_index "pages", ["contest_id"], name: "index_pages_on_contest_id"
 
+  create_table "products", force: true do |t|
+    t.integer  "contest_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "products", ["account_id"], name: "index_products_on_account_id"
+  add_index "products", ["contest_id"], name: "index_products_on_contest_id"
+
+  create_table "profiles", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["account_id"], name: "index_profiles_on_account_id"
+  add_index "profiles", ["product_id"], name: "index_profiles_on_product_id"
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "term_formations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "form_formation_id"
+    t.string   "type"
+    t.string   "name"
+  end
+
+  add_index "term_formations", ["form_formation_id"], name: "index_term_formations_on_form_formation_id"
 
 end

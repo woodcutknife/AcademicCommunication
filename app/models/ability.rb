@@ -15,9 +15,14 @@ class Ability
       can [:read, :update], Page do |page|
         page.contest.contest_category.admins.include? account
       end
+      can [:read, :update], FormFormation do |form_formation|
+        form_formation.contest.contest_category.admins.include? account
+      end
+      can :manage, [Product, Profile]
     end
 
     if account.role?(:judge)
+      can :read, Contest
     end
 
     if account.role?(:user)

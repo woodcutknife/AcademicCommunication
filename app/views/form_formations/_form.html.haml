@@ -1,0 +1,9 @@
+= simple_form_for([@contest_category, @contest, @form_formation], url: contest_category_contest_form_formation_path(@contest_category, @contest)) do |f|
+  #term_formations
+    = f.simple_fields_for :term_formations do |term_formation|
+      = render 'term_formation_fields', f: term_formation
+    .links
+      = link_to_add_association 'add term formation', f, :term_formations, class: 'btn btn-success'
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

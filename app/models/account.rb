@@ -6,6 +6,9 @@ class Account < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
   has_and_belongs_to_many :contest_categories
+  has_many :profiles, dependent: :destroy
+  has_many :products, through: :profiles
+
   after_create :set_default_role
 
   def role?(role)

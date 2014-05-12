@@ -12,11 +12,12 @@ Rails.application.routes.draw do
     concerns :can_destroy_multiple
   end
 
-  resources :contest_categories do
+  resources :contest_categories, except: [:show] do
     concerns :can_destroy_multiple
     resources :contests do
       concerns :can_destroy_multiple
       resources :pages, except: [:show]
+      resource :form_formation, only: [:show, :edit, :update]
     end
   end
 

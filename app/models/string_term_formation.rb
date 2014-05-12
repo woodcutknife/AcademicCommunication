@@ -1,0 +1,2 @@
+class StringTermFormation < TermFormation
+end

@@ -1,0 +1,17 @@
+%h2.page-header
+  Form formation
+  %small= @contest.name
+  - if can? :update, @form_formation
+    = link_to 'Edit form formaton', edit_contest_category_contest_form_formation_path(@contest_category, @contest), class: 'btn btn-info pull-right'
+%table.table
+  %thead
+    %tr
+      %th #
+      %th Type
+      %th Name
+  %tbody
+    - @form_formation.term_formations.each do |term_formation|
+      %tr
+        %td= term_formation.id
+        %td= term_formation.type
+        %td= term_formation.name
