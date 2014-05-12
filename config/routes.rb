@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :contests do
       concerns :can_destroy_multiple
       resources :pages, except: [:show]
-      resource :form_formation, only: [:show, :edit, :update]
+      resources :form_formations, only: [:show, :edit, :update]
     end
   end
 

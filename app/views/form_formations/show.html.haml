@@ -1,8 +1,8 @@
 %h2.page-header
-  Form formation
-  %small= @contest.name
+  = "#{@form_formation.resource.humanize} form formation"
+  %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
   - if can? :update, @form_formation
-    = link_to 'Edit form formaton', edit_contest_category_contest_form_formation_path(@contest_category, @contest), class: 'btn btn-info pull-right'
+    = link_to 'Edit form formaton', edit_contest_category_contest_form_formation_path(@contest_category, @contest, @form_formation), class: 'btn btn-info pull-right'
 %table.table
   %thead
     %tr

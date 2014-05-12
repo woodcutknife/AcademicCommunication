@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512134010) do
+ActiveRecord::Schema.define(version: 20140512142453) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140512134010) do
     t.integer  "contest_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "resource"
   end
 
   add_index "form_formations", ["contest_id"], name: "index_form_formations_on_contest_id"
@@ -68,9 +69,11 @@ ActiveRecord::Schema.define(version: 20140512134010) do
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "profile_id"
   end
 
   add_index "forms", ["product_id"], name: "index_forms_on_product_id"
+  add_index "forms", ["profile_id"], name: "index_forms_on_profile_id"
 
   create_table "pages", force: true do |t|
     t.string   "title"

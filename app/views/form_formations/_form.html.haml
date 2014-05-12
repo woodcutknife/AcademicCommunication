@@ -1,4 +1,4 @@
-= simple_form_for([@contest_category, @contest, @form_formation], url: contest_category_contest_form_formation_path(@contest_category, @contest)) do |f|
+= simple_form_for([@contest_category, @contest, @form_formation], url: contest_category_contest_form_formation_path(@contest_category, @contest, @form_formation)) do |f|
   #term_formations
     = f.simple_fields_for :term_formations do |term_formation|
       = render 'term_formation_fields', f: term_formation

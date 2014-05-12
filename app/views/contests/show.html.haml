@@ -4,12 +4,12 @@
     .btn-group
       - if can? :create, Page
         = link_to 'New page', new_contest_category_contest_page_path(@contest_category, @contest), class: 'btn btn-success'
-      - if can?(:update, Page) or (current_account.try?(:role?, :contest_admin) and @contest_category.admins.include? current_account)
+      - if can?(:update, Page) or (current_account and current_account.role?(:contest_admin) and @contest_category.admins.include?(current_account))
         = link_to 'Show pages', contest_category_contest_pages_path(@contest_category, @contest), class: 'btn btn-info'
     .btn-group
-      - if can?(:update, @contest.form_formation)
-        = link_to 'Edit form formation', edit_contest_category_contest_form_formation_path(@contest_category, @contest), class: 'btn btn-success'
-        = link_to 'Show form formation', contest_category_contest_form_formation_path(@contest_category, @contest), class: 'btn btn-info'
+      - if can?(:update, FormFormation) or (current_account and current_account.role?(:contest_admin) and @contest_category.admins.include?(current_account))
+        = link_to 'Show product form', contest_category_contest_product_form_formation_path(@contest_category, @contest), class: 'btn btn-success'
+        = link_to 'Show profile form', contest_category_contest_profile_form_formation_path(@contest_category, @contest), class: 'btn btn-info'
 %ul#pageTab.nav.nav-tabs
   - @pages.each do |page|
     %li{:class => ('active' if page.default?)}

@@ -27,6 +27,6 @@ class FormFormationsController < ApplicationController
   def get_form_formation
     @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.find(params[:contest_id])
-    @form_formation = @contest.form_formation
+    @form_formation = @contest.form_formations.find(params[:id])
   end
 end

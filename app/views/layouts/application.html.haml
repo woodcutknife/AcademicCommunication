@@ -44,6 +44,13 @@
                       %li{:class => ('active' if params[:controller] == 'contests' and ContestCategory.find(params[:contest_category_id]) == contest_category)}= link_to contest_category.name, contest_category_contests_path(contest_category)
               - elsif current_account.role?(:judge)
               - elsif current_account.role?(:user)
+                %li.dropdown
+                  %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown'}
+                    Contests
+                    %b.caret
+                  %ul.dropdown-menu
+                    - ContestCategory.all.each do |contest_category|
+                      %li{:class => ('active' if params[:controller] == 'contests' and ContestCategory.find(params[:contest_category_id]) == contest_category)}= link_to contest_category.name, contest_category_contests_path(contest_category)
             - else
               %li.dropdown
                 %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown'}
