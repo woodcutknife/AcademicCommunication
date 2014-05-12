@@ -1,4 +1,6 @@
-%h2.page-header= @account.email
+%h2.page-header
+  View account
+  %small= @account.email
 = link_to 'Edit', edit_account_path(@account), class: 'btn btn-info'
 = link_to 'Delete', account_path(@account), method: :delete, data: { confirm: 'Are you sure you want to delete this?' }, class: 'btn btn-danger'
 %br

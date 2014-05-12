@@ -22,8 +22,10 @@
           = link_to 'AcademicCommunication', root_path, class: 'navbar-brand'
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li.active= link_to 'Home', root_path
-            %li= link_to 'News', '#'
+            %li{:class => "#{'active' if params[:controller] == 'welcome'}"}= link_to 'Home', root_path
+            - if current_account
+              - if current_account.role?(:super_admin)
+                %li{:class => "#{'active' if params[:controller] == 'accounts'}"}= link_to 'Accounts', accounts_path
           %ul.nav.navbar-nav.navbar-right
             - unless current_account
               %li= link_to 'Sign in', new_session_path(:account)
