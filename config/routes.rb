@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       concerns :can_destroy_multiple
       resources :pages, except: [:show]
       resources :form_formations, only: [:show, :edit, :update]
+      resources :products
     end
   end
 
