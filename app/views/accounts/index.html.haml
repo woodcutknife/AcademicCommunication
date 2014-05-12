@@ -9,16 +9,17 @@
       %tr
         %th
         %th Id
-        - display_fields.map { |f| f.to_s.humanize }.each do |field|
+        - account_display_fields.map { |f| f.to_s.humanize }.each do |field|
           %th= field
         %th Roles
+        %th
     %tbody
       - @accounts.each do |account|
         %tr
           %td= check_box_tag "account_ids[]", account.id
           %td= link_to account.id, account_path(account)
-          - display_fields.each do |field|
-            %td= account.send(field)
+          - account_display_fields.each do |f|
+            %td= account.send(f)
           %td= account.roles.map { |r| r.name }.join(':')
           %td
             = link_to 'View', account_path(account)

@@ -2,10 +2,18 @@ Rails.application.routes.draw do
   root "welcome#index"
   devise_for :accounts, path_prefix: "auth"
 
-  resources :accounts, only: [:index, :show, :edit, :update, :destroy] do
+  concern :can_destroy_multiple do
     collection do
       post 'destroy_multiple'
     end
+  end
+
+  resources :accounts, only: [:index, :show, :edit, :update, :destroy] do
+    concerns :can_destroy_multiple
+  end
+
+  resources :contest_categories do
+    concerns :can_destroy_multiple
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

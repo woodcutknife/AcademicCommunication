@@ -26,6 +26,7 @@
             - if current_account
               - if current_account.role?(:super_admin)
                 %li{:class => ('active' if params[:controller] == 'accounts')}= link_to 'Accounts', accounts_path
+                %li{:class => ('active' if params[:controller] == 'contest_categories')}= link_to 'Contest Categories', contest_categories_path
           %ul.nav.navbar-nav.navbar-right
             - unless current_account
               %li{:class => ('active' if current_page?(new_session_path(:account)))}= link_to 'Sign in', new_session_path(:account)
