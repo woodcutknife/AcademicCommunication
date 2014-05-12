@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Role.create(name: 'User')
+Role.create(name: 'Judge')
 Role.create(name: 'ContestAdmin')
 Role.create(name: 'SuperAdmin')
 

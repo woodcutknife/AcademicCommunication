@@ -27,6 +27,21 @@
               - if current_account.role?(:super_admin)
                 %li{:class => ('active' if params[:controller] == 'accounts')}= link_to 'Accounts', accounts_path
                 %li{:class => ('active' if params[:controller] == 'contest_categories')}= link_to 'Contest Categories', contest_categories_path
+                %li.dropdown
+                  %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown'}
+                    Contests
+                    %b.caret
+                  %ul.dropdown-menu
+                    - ContestCategory.all.each do |contest_category|
+                      %li{:class => ('active' if params[:controller] == 'contests' and ContestCategory.find(params[:contest_category_id]) == contest_category)}= link_to contest_category.name, contest_category_contests_path(contest_category)
+              - elsif current_account.role?(:contest_admin)
+                %li.dropdown
+                  %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown'}
+                    Contests
+                    %b.caret
+                  %ul.dropdown-menu
+                    - current_account.contest_categories.each do |contest_category|
+                      %li{:class => ('active' if params[:controller] == 'contests' and ContestCategory.find(params[:contest_category_id]) == contest_category)}= link_to contest_category.name, contest_category_contests_path(contest_category)
           %ul.nav.navbar-nav.navbar-right
             - unless current_account
               %li{:class => ('active' if current_page?(new_session_path(:account)))}= link_to 'Sign in', new_session_path(:account)

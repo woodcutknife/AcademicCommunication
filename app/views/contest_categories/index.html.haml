@@ -10,8 +10,8 @@
       %tr
         %th
         %th Id
-        - contest_category_display_fields.map { |f| f.to_s.humanize }.each do |field|
-          %th= field
+        - contest_category_display_fields.map { |f| f.to_s.humanize }.each do |f|
+          %th= f
         %th
     %tbody
       - @contest_categories.each do |contest_category|

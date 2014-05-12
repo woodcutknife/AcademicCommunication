@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   resources :contest_categories do
     concerns :can_destroy_multiple
+    resources :contests do
+      concerns :can_destroy_multiple
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
