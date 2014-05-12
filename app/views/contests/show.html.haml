@@ -1,14 +1,16 @@
 %h2.page-header
   = @contest.name
-  - if can? :create, Page
-    = link_to 'New page', new_contest_category_contest_page_path(@contest_category, @contest), class: 'btn btn-success pull-right'
+  .btn-group.pull-right
+    - if can? :create, Page
+      = link_to 'New page', new_contest_category_contest_page_path(@contest_category, @contest), class: 'btn btn-success'
+    - if can?(:update, Page) or (current_account.try?(:role?, :contest_admin) and @contest_category.admins.include? current_account)
+      = link_to 'Show pages', contest_category_contest_pages_path(@contest_category, @contest), class: 'btn btn-info'
 %ul#pageTab.nav.nav-tabs
-  - pages = @contest.pages.where(visible: true)
-  - pages.each do |page|
+  - @pages.each do |page|
     %li{:class => ('active' if page.default?)}
       %a{:href => "##{page.slug}", :'data-toggle' => 'tab'}= page.title
 #pageTabContent.tab-content
-  - pages.each do |page|
+  - @pages.each do |page|
     %div{:id => "#{page.slug}", :class => "tab-pane fade #{'in active' if page.default}"}
       - if can? :update, page
         %br

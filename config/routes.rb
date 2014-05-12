@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     concerns :can_destroy_multiple
     resources :contests do
       concerns :can_destroy_multiple
-      resources :pages, except: [:index, :show]
+      resources :pages, except: [:show]
     end
   end
 

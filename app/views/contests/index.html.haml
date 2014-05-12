@@ -21,9 +21,13 @@
           %td= check_box_tag "contest_ids[]", contest.id
           %td= link_to contest.id, contest_category_contest_path(@contest_category, contest)
           - contest_display_fields.each do |f|
-            %td= contest.send(f)
+            - if f.to_s == "name"
+              %td= link_to contest.send(f), contest_category_contest_path(@contest_category, contest)
+            - else
+              %td= contest.send(f)
           %td
             = link_to 'View', contest_category_contest_path(@contest_category, contest)
-            = link_to 'Edit', edit_contest_category_contest_path(@contest_category, contest)
+            - if can? :update, contest
+              = link_to 'Edit', edit_contest_category_contest_path(@contest_category, contest)
             - if can? :destory, contest
               = link_to 'Delete', contest_category_contest_path(@contest_category, contest), method: :delete, data: { confirm: 'Are you sure you want to delete this?' }

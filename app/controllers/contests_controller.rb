@@ -1,23 +1,22 @@
 class ContestsController < ApplicationController
   load_and_authorize_resource
 
+  before_action :get_category, except: [:contest_params]
+
   def index
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contests = @contest_category.contests.order(id: :desc)
   end
 
   def show
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.find(params[:id])
+    @pages = @contest.pages.where(visible: true).order(z_index: :desc)
   end
 
   def new
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.build
   end
 
   def create
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     if @contest = @contest_category.contests.create(contest_params)
       flash[:notice] = "Successfully created contest."
       redirect_to [@contest_category, @contest]
@@ -27,12 +26,10 @@ class ContestsController < ApplicationController
   end
 
   def edit
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.find(params[:id])
   end
 
   def update
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.find(params[:id])
     if @contest.update(contest_params)
       flash[:notice] = "Successfully updated contest."
@@ -43,7 +40,6 @@ class ContestsController < ApplicationController
   end
 
   def destroy
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     @contest = @contest_category.contests.find(params[:id])
     if @contest_category.contests.destroy @contest
       flash[:notice] = "Successfully deleted contest."
@@ -52,7 +48,6 @@ class ContestsController < ApplicationController
   end
 
   def destroy_multiple
-    @contest_category = ContestCategory.find(params[:contest_category_id])
     if params[:contest_ids]
       @contests = @contest_category.contests.find(params[:contest_ids])
       @contests.each do |contest|
@@ -65,5 +60,11 @@ class ContestsController < ApplicationController
 
   def contest_params
     params[:contest].permit(:name)
+  end
+
+  private
+
+  def get_category
+    @contest_category = ContestCategory.find(params[:contest_category_id])
   end
 end

@@ -3,6 +3,10 @@ class PagesController < ApplicationController
 
   before_action :get_category_and_contest, except: [:page_params]
 
+  def index
+    @pages = @contest.pages
+  end
+
   def new
     @page = @contest.pages.build
   end
@@ -30,8 +34,16 @@ class PagesController < ApplicationController
     end
   end
 
+  def destroy
+    @page = @contest.pages.find(params[:id])
+    if @contest.pages.destroy @page
+      flash[:notice] = "Successfully deleted page."
+      redirect_to contest_category_contest_path(@contest_category, @contest)
+    end
+  end
+
   def page_params
-    params[:page].permit(:title, :content, :default, :slug, :visible)
+    params[:page].permit(:title, :content, :default, :slug, :visible, :z_index)
   end
 
   private

@@ -17,10 +17,13 @@
       - @contest_categories.each do |contest_category|
         %tr
           %td= check_box_tag "contest_category_ids[]", contest_category.id
-          %td= link_to contest_category.id, contest_category_path(contest_category)
+          %td= link_to contest_category.id, contest_category_contests_path(contest_category)
           - contest_category_display_fields.each do |f|
-            %td= contest_category.send(f)
+            - if f.to_s == "name"
+              %td= link_to contest_category.send(f), contest_category_contests_path(contest_category)
+            - else
+              %td= contest_category.send(f)
           %td
-            = link_to 'View', contest_category_path(contest_category)
+            = link_to 'View', contest_category_contests_path(contest_category)
             = link_to 'Edit', edit_contest_category_path(contest_category)
             = link_to 'Delete', contest_category_path(contest_category), method: :delete, data: { confirm: 'Are you sure you want to delete this?' }

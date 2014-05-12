@@ -21,8 +21,10 @@ class Ability
     end
 
     if account.role?(:user)
-      can :read, [Contest, Page]
+      can :read, Contest
     end
+
+    can :read, Contest
 
     # Define abilities for the passed in user here. For example:
     #

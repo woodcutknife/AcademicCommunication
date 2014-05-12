@@ -1,0 +1,23 @@
+%h1.page-header
+  Pages
+  %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+  - if can? :create, Page
+    = link_to 'New page', new_contest_category_contest_page_path(@contest_category, @contest), class: 'btn btn-success pull-right'
+%table.table
+  %thead
+    %tr
+      %th Id
+      - page_display_fields.map { |f| f.to_s.humanize }.each do |f|
+        %th= f
+      %th
+  %tbody
+    - @pages.each do |page|
+      %tr
+        %td= page.id
+        - page_display_fields.each do |f|
+          %td= page.send(f)
+        %td
+          - if can? :update, page
+            = link_to 'Edit', edit_contest_category_contest_page_path(@contest_category, @contest, page)
+          - if can? :detroy, page
+            = link_to 'Delete', contest_category_contest_page_path(@contest_category, @contest, page), method: :delete, data: { confirm: 'Are you sure you want to delete this page?' }
