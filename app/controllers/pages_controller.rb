@@ -31,7 +31,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params[:page].permit(:title, :content, :default, :slug)
+    params[:page].permit(:title, :content, :default, :slug, :visible)
   end
 
   private

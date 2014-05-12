@@ -3,6 +3,8 @@
   = f.input :slug, required: true, input_html: { class: 'form-control' }
   %label.checkbox
     = f.input :default, as: :boolean
+  %label.checkbox
+    = f.input :visible, as: :boolean
   = f.input :content, input_html: { class: 'form-control' }
   %br
   = f.submit class: 'btn btn-primary'

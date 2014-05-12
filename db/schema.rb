@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512081448) do
+ActiveRecord::Schema.define(version: 20140512084001) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140512081448) do
     t.datetime "updated_at"
     t.boolean  "default"
     t.string   "slug"
+    t.boolean  "visible"
   end
 
   add_index "pages", ["contest_id"], name: "index_pages_on_contest_id"

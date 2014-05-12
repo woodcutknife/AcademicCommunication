@@ -7,6 +7,7 @@ class Ability
     if account.role?(:super_admin)
       can :manage, :all
     end
+
     if account.role?(:contest_admin)
       can [:read, :update], Contest do |contest|
         contest.contest_category.admins.include? account
@@ -15,8 +16,10 @@ class Ability
         page.contest.contest_category.admins.include? account
       end
     end
+
     if account.role?(:judge)
     end
+
     if account.role?(:user)
       can :read, [Contest, Page]
     end
