@@ -14,7 +14,6 @@ class ContestCategoriesController < ApplicationController
   end
 
   def create
-    redirect_to root_path
     @contest_category = ContestCategory.new(contest_category_params)
     if @contest_category.save
       flash[:notice] = "Successfully created contest category."

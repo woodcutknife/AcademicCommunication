@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :contest_categories
   after_create :set_default_role
 
   def role?(role)

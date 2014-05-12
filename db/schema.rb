@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512025022) do
+ActiveRecord::Schema.define(version: 20140512052401) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -31,6 +31,11 @@ ActiveRecord::Schema.define(version: 20140512025022) do
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
 
+  create_table "accounts_contest_categories", id: false, force: true do |t|
+    t.integer "account_id"
+    t.integer "contest_category_id"
+  end
+
   create_table "accounts_roles", id: false, force: true do |t|
     t.integer "account_id"
     t.integer "role_id"
@@ -41,6 +46,15 @@ ActiveRecord::Schema.define(version: 20140512025022) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "contests", force: true do |t|
+    t.string   "name"
+    t.integer  "contest_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contests", ["contest_category_id"], name: "index_contests_on_contest_category_id"
 
   create_table "roles", force: true do |t|
     t.string   "name"

@@ -43,6 +43,6 @@ class AccountsController < ApplicationController
   end
 
   def account_params
-    params[:account].permit(:role_ids => [])
+    params[:account].permit(:role_ids => [], :contest_category_ids => [])
   end
 end
