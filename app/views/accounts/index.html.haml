@@ -1,0 +1,26 @@
+%h1.page-header
+  Accounts
+= form_tag(destroy_multiple_accounts_path, :'data-confirm' => 'Are you sure you want to delete these accounts?') do
+  = submit_tag "Delete selected", class: 'btn btn-danger' 
+  %br
+  %br
+  %table.table
+    %thead
+      %tr
+        %th
+        %th Id
+        - display_fields.map { |f| f.to_s.humanize }.each do |field|
+          %th= field
+        %th Roles
+    %tbody
+      - @accounts.each do |account|
+        %tr
+          %td= check_box_tag "account_ids[]", account.id
+          %td= link_to account.id, account_path(account)
+          - display_fields.each do |field|
+            %td= account.send(field)
+          %td= account.roles.map { |r| r.name }.join(':')
+          %td
+            = link_to 'View', account_path(account)
+            = link_to 'Edit', edit_account_path(account)
+            = link_to 'Delete', account_path(account), method: :delete, data: { confirm: 'Are you sure you want to delete this?' }

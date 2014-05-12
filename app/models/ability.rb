@@ -4,6 +4,10 @@ class Ability
   def initialize(account)
     account ||= Account.new # guest account
 
+    if account.role?(:super_admin)
+      can :manage, :all
+    end
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

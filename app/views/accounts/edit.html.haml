@@ -1,0 +1,8 @@
+%h2.page-header
+  Edit account
+  %small= @account.email
+= simple_form_for(@account) do |f|
+  = f.association :roles, as: :check_boxes
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', accounts_path, class: 'btn btn-default'

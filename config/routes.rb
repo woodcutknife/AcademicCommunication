@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   root "welcome#index"
-  devise_for :accounts
+  devise_for :accounts, path_prefix: "auth"
+
+  resources :accounts, only: [:index, :show, :edit, :update, :destroy] do
+    collection do
+      post 'destroy_multiple'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
