@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
-    if @account.update(permit_params)
+    if @account.update(account_params)
       flash[:notice] = "Successfully updated account."
       redirect_to @account
     else
@@ -42,9 +42,7 @@ class AccountsController < ApplicationController
     redirect_to accounts_path
   end
 
-  private
-
-  def permit_params
+  def account_params
     params[:account].permit(:role_ids => [])
   end
 end
