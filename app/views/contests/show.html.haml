@@ -1,0 +1,17 @@
+%h2.page-header
+  = @contest.name
+  - if can? :create, Page
+    = link_to 'New page', new_contest_category_contest_page_path(@contest_category, @contest), class: 'btn btn-success pull-right'
+%ul#pageTab.nav.nav-tabs
+  - @contest.pages.each do |page|
+    %li{:class => ('active' if page.default?)}
+      %a{:href => "##{page.slug}", :'data-toggle' => 'tab'}= page.title
+#pageTabContent.tab-content
+  - @contest.pages.each do |page|
+    %div{:id => "#{page.slug}", :class => "tab-pane fade #{'in active' if page.default}"}
+      - if can? :update, page
+        %br
+        = link_to 'Edit this page', edit_contest_category_contest_page_path(@contest_category, @contest, page), class: 'btn btn-info'
+        %br
+      %br
+      = page.content.html_safe

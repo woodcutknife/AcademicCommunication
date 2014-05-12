@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :accounts, only: [:index, :show, :edit, :update, :destroy] do
+  resources :accounts, except: [:new, :create] do
     concerns :can_destroy_multiple
   end
 
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     concerns :can_destroy_multiple
     resources :contests do
       concerns :can_destroy_multiple
+      resources :pages, except: [:index, :show]
     end
   end
 

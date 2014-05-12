@@ -18,7 +18,7 @@ class ContestsController < ApplicationController
 
   def create
     @contest_category = ContestCategory.find(params[:contest_category_id])
-    if @contest_category.contests.create(contest_params)
+    if @contest = @contest_category.contests.create(contest_params)
       flash[:notice] = "Successfully created contest."
       redirect_to [@contest_category, @contest]
     else

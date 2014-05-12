@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512052401) do
+ActiveRecord::Schema.define(version: 20140512081448) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -55,6 +55,18 @@ ActiveRecord::Schema.define(version: 20140512052401) do
   end
 
   add_index "contests", ["contest_category_id"], name: "index_contests_on_contest_category_id"
+
+  create_table "pages", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "default"
+    t.string   "slug"
+  end
+
+  add_index "pages", ["contest_id"], name: "index_pages_on_contest_id"
 
   create_table "roles", force: true do |t|
     t.string   "name"

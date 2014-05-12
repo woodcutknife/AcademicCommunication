@@ -6,12 +6,19 @@ class Ability
 
     if account.role?(:super_admin)
       can :manage, :all
-    elsif account.role?(:contest_admin)
+    end
+    if account.role?(:contest_admin)
       can [:read, :update], Contest do |contest|
         contest.contest_category.admins.include? account
       end
-    elsif account.role?(:judge)
-    elsif account.role?(:user)
+      can [:read, :update], Page do |page|
+        page.contest.contest_category.admins.include? account
+      end
+    end
+    if account.role?(:judge)
+    end
+    if account.role?(:user)
+      can :read, [Contest, Page]
     end
 
     # Define abilities for the passed in user here. For example:
