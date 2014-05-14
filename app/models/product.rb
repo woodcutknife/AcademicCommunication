@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   belongs_to :contest
   has_many :profiles, dependent: :destroy
   has_many :accounts, through: :profiles
+  has_many :results, dependent: :destroy
+  has_many :judges, through: :results, class_name: 'Account'
   has_one :form, dependent: :destroy
 
   def attr(name)

@@ -11,6 +11,6 @@ Role.create(name: 'Judge')
 Role.create(name: 'ContestAdmin')
 Role.create(name: 'SuperAdmin')
 
-super_admin = Account.create(email: 'admin@example.com', password: 'password')
+super_admin = Account.new(email: 'admin@example.com', password: 'password')
 super_admin.roles << Role.where(name: 'SuperAdmin').first
 super_admin.save

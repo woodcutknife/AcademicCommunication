@@ -8,6 +8,8 @@ class Account < ActiveRecord::Base
   has_and_belongs_to_many :contest_categories
   has_many :profiles, dependent: :destroy
   has_many :products, through: :profiles
+  has_many :results, dependent: :destroy
+  has_many :tasks, through: :results, class_name: 'Product'
 
   after_create :set_default_role
 
@@ -18,6 +20,6 @@ class Account < ActiveRecord::Base
   private
 
   def set_default_role
-    self.roles << Role.where(:name => 'User').first
+    self.roles << Role.where(:name => 'User').first unless self.role?(:super_admin)
   end
 end

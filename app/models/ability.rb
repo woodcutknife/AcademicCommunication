@@ -23,6 +23,9 @@ class Ability
 
     if account.role?(:judge)
       can :read, Contest
+      can :read, Product do |product|
+        product.accounts.include? account
+      end
     end
 
     if account.role?(:user)
