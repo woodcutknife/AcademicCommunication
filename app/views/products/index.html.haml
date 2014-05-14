@@ -1,0 +1,30 @@
+%h2.page-header
+  Products
+  %small
+    = link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+    - if can? :new, Product
+      = link_to 'New product', new_contest_category_contest_product_path(@contest_category, @contest), class: 'btn btn-success pull-right'
+= form_tag(destroy_multiple_contest_category_contest_products_path(@contest_category, @contest), :'data-confirm' => 'Are you sure you want to delete these products?') do
+  - if can? :destroy, Product
+    = submit_tag "Delete selected", class: 'btn btn-danger'
+    %br
+    %br
+  %table.table
+    %thead
+      %tr
+        %th
+        %th Id
+        %th Name
+        %th
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td= check_box_tag "product_ids[]", product.id
+          %td= link_to product.id, contest_category_contest_product_path(@contest_category, @contest, product)
+          %td= link_to product.attr(:name), contest_category_contest_product_path(@contest_category, @contest, product)
+          %td
+            = link_to 'View', contest_category_contest_product_path(@contest_category, @contest, product)
+            - if can? :update, product
+              = link_to 'Edit', edit_contest_category_contest_product_path(@contest_category, @contest, product)
+            - if can? :destroy, product
+              = link_to 'Delete', contest_category_contest_product_path(@contest_category, @contest, product), method: :delete, data: { confirm: 'Are you sure you want to delete this product?' }

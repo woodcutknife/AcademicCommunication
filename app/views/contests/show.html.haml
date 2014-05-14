@@ -15,7 +15,11 @@
     %li{:class => ('active' if page.default?)}
       %a{:href => "##{page.slug}", :'data-toggle' => 'tab'}= page.title
   %li
-    = link_to 'New product', new_contest_category_contest_product_path(@contest_category, @contest)
+    - if can? :create, Product
+      = link_to 'New product', new_contest_category_contest_product_path(@contest_category, @contest)
+  %li
+    - if can? :read, Product
+      = link_to 'Products', contest_category_contest_products_path(@contest_category, @contest)
 #pageTabContent.tab-content
   - @pages.each do |page|
     %div{:id => "#{page.slug}", :class => "tab-pane fade #{'in active' if page.default}"}

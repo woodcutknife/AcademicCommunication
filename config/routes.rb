@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :pages, except: [:show]
       resources :form_formations, only: [:show, :edit, :update]
       resources :products do
+        concerns :can_destroy_multiple
         resources :profiles, except: [:index, :show]
       end
     end

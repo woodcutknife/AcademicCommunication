@@ -17,7 +17,7 @@ class ContestCategoriesController < ApplicationController
     @contest_category = ContestCategory.new(contest_category_params)
     if @contest_category.save
       flash[:notice] = "Successfully created contest category."
-      redirect_to @contest_category
+      redirect_to contest_categories_path
     else
       render action: :new
     end
@@ -31,7 +31,7 @@ class ContestCategoriesController < ApplicationController
     @contest_category = ContestCategory.find(params[:id])
     if @contest_category.update(contest_category_params)
       flash[:notice] = "Successfully updated contest category."
-      redirect_to @contest_category
+      redirect_to contest_categories_path
     else
       render action: :edit
     end

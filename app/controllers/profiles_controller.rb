@@ -9,16 +9,21 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @profile = @product.profiles.create(account: current_account)
+    @profile = @product.profiles.create
     @form_formation = @contest.form_formations.where(resource: 'profile').first
     @form = @profile.create_form
     @form_formation.term_formations.each do |tf|
       t = @form.terms.build(term_formation: tf)
       if tf.type == 'StringTermFormation'
         t.string_value = params[tf.name.to_sym]
+        if tf.name == 'email'
+          account = Account.where(email: params[:email]).first
+          @profile.account = account unless account.nil?
+        end
       end
       t.save
     end
+    @profile.save
     redirect_to contest_category_contest_product_path(@contest_category, @contest, @product)
   end
 
@@ -35,9 +40,14 @@ class ProfilesController < ApplicationController
       t = @form.terms.where(term_formation: tf).first
       if tf.type == 'StringTermFormation'
         t.string_value = params[tf.name.to_sym]
+        if tf.name == 'email'
+          account = Account.where(email: params[:email]).first
+          @profile.account = account
+        end
       end
       t.save
     end
+    @profile.save
     redirect_to contest_category_contest_product_path(@contest_category, @contest, @product)
   end
 

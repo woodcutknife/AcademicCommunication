@@ -2,7 +2,7 @@ class AccountsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @accounts = Account.where.not(id: current_account.id)
+    @accounts = Account.all
   end
 
   def show
