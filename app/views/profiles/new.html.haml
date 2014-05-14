@@ -1,0 +1,11 @@
+%h2.page-header
+  New profile
+  %small= link_to @product.attr(:name), contest_category_contest_product_path(@contest_category, @contest, @product)
+= simple_form_for([@contest_category, @contest, @product, @profile]) do |f|
+  - @form_formation.term_formations.each do |tf|
+    - if tf.type == 'StringTermFormation'
+      = label_tag_with_required_option(tf.name, tf.required?)
+      = text_field_tag(tf.name.to_sym, '', class: 'form-control', required: tf.required?)
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

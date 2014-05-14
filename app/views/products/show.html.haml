@@ -7,6 +7,8 @@
   - @product.profiles.each_with_index do |profile, index|
     %li
       %a{:href => "#profile#{index}", :'data-toggle' => 'tab'}= "Profile #{index}"
+  %li
+    = link_to 'New profile', new_contest_category_contest_product_profile_path(@contest_category, @contest, @product)
 #productContent.tab-content
   %div#info.tab-pane.fade.in.active
     - if can?(:update, @product)
@@ -23,10 +25,14 @@
               = t.string_value
   - @product.profiles.each_with_index do |profile, index|
     %div.tab-pane.fade{:id => "profile#{index}"}
-      - if can?(:update, profile)
-        %br
-        = link_to 'Edit this profile', root_path, class: 'btn btn-info'
-        %br
+      .btn-toolbar
+        - if can?(:update, profile)
+          %br
+          .btn-group
+            = link_to 'Edit this profile', edit_contest_category_contest_product_profile_path(@contest_category, @contest, @product, profile), class: 'btn btn-info'
+            - if can?(:destroy, profile)
+              = link_to 'Delete this profile', contest_category_contest_product_profile_path(@contest_category, @contest, @product, profile), method: :delete, data: { confirm: 'Are you sure you want to delete this profile?' }, class: 'btn btn-danger'
+          %br
       %br
       %table.table
         - profile.form.terms.each do |t|
