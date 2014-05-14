@@ -14,12 +14,10 @@ class ProfilesController < ApplicationController
     @form = @profile.create_form
     @form_formation.term_formations.each do |tf|
       t = @form.terms.build(term_formation: tf)
-      if tf.type == 'StringTermFormation'
-        t.string_value = params[tf.name.to_sym]
-        if tf.name == 'email'
-          account = Account.where(email: params[:email]).first
-          @profile.account = account unless account.nil?
-        end
+      get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
+      if tf.name == 'email'
+        account = Account.where(email: params[:email]).first
+        @profile.account = account unless account.nil?
       end
       t.save
     end
@@ -38,12 +36,10 @@ class ProfilesController < ApplicationController
     @form = @profile.form
     @form_formation.term_formations.each do |tf|
       t = @form.terms.where(term_formation: tf).first
-      if tf.type == 'StringTermFormation'
-        t.string_value = params[tf.name.to_sym]
-        if tf.name == 'email'
-          account = Account.where(email: params[:email]).first
-          @profile.account = account
-        end
+      get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
+      if tf.name == 'email'
+        account = Account.where(email: params[:email]).first
+        @profile.account = account
       end
       t.save
     end

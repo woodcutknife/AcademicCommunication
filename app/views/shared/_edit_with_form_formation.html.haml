@@ -1,0 +1,13 @@
+- @form_formation.term_formations.each do |tf|
+  - if tf.type == 'StringTermFormation'
+    = label_tag_with_required_option(tf.name, tf.required?)
+    - t = tf.terms.where(form: @form).first
+    = text_field_tag(tf.name.to_sym, t.string_value, class: 'form-control', required: tf.required?)
+  - elsif tf.type == 'TextTermFormation'
+    = label_tag_with_required_option(tf.name, tf.required?)
+    - t = tf.terms.where(form: @form).first
+    = text_area_tag(tf.name.to_sym, t.text_value, class: 'form-control', required: tf.required?)
+  - elsif tf.type == 'BooleanTermFormation'
+    %label.checkbox
+      = check_box_tag(tf.name.to_sym)
+      = label_tag_with_required_option(tf.name, tf.required?)

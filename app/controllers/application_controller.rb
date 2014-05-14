@@ -17,4 +17,9 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_account)
   end
+
+  def get_assignment_by_formation(object, formation)
+    type_name = formation.type.tableize.split('_')[0]
+    lambda { |val| object.send("#{type_name}_value=".to_sym, val) }
+  end
 end

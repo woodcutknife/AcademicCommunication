@@ -1,6 +1,10 @@
 .nested-fields
-  = f.input :type, required: true, autofocus:true, input_html: { class: 'form-control' }
+  = f.label :type, required: true
+  = f.select :type, options_for_select([["String", "StringTermFormation"], ["Text", "TextTermFormation"], ["Boolean", "BooleanTermFormation"]], f.object.type || "StringTermFormation"), {}, { class: 'form-control' }
   = f.input :name, required: true, input_html: { class: 'form-control' }
+  = f.input :choises, input_html: { class: 'form-control' }
+  %label.checkbox
+    = f.input :single, as: :boolean
   %label.checkbox
     = f.input :required, as: :boolean
   = link_to_remove_association 'remove term formation', f

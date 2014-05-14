@@ -20,9 +20,7 @@
       - @product.form.terms.each do |t|
         %tr
           %th= t.term_formation.name.humanize
-          %td
-            - if t.term_formation.type == 'StringTermFormation'
-              = t.string_value
+          %td= get_value_by_formation(t, t.term_formation)
   - @product.profiles.each_with_index do |profile, index|
     %div.tab-pane.fade{:id => "profile#{index}"}
       .btn-toolbar
@@ -38,6 +36,4 @@
         - profile.form.terms.each do |t|
           %tr
             %th= t.term_formation.name.humanize
-            %td
-              - if t.term_formation.type == 'StringTermFormation'
-                = t.string_value
+            %td= get_value_by_formation(t, t.term_formation)

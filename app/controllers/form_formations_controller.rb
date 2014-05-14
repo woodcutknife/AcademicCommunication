@@ -19,7 +19,7 @@ class FormFormationsController < ApplicationController
   end
 
   def form_formation_params
-    params[:form_formation].permit(:term_formations_attributes => [:id, :type, :name, :required, :_destory])
+    params[:form_formation].permit(:term_formations_attributes => [:id, :type, :name, :required, :choises, :single, :_destory])
   end
 
   private

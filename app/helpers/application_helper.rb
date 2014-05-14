@@ -13,4 +13,13 @@ module ApplicationHelper
       contest_category_contest_form_formation_path(contest_category, contest, form_formation)
     end
   end
+
+  def get_value_by_formation(object, formation)
+    type_name = formation.type.tableize.split('_')[0]
+    if type_name == 'boolean'
+      object.send("#{type_name}_value?".to_sym)
+    else
+      object.send("#{type_name}_value".to_sym)
+    end
+  end
 end

@@ -24,9 +24,7 @@ class ProductsController < ApplicationController
     @form = @product.create_form
     @form_formation.term_formations.each do |tf|
       t = @form.terms.build(term_formation: tf)
-      if tf.type == 'StringTermFormation'
-        t.string_value = params[tf.name.to_sym]
-      end
+      get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
       t.save
     end
     if current_account.role?(:user)
@@ -35,9 +33,7 @@ class ProductsController < ApplicationController
       @form = @profile.create_form
       @form_formation.term_formations.each do |tf|
         t = @form.terms.build(term_formation: tf)
-        if tf.type == 'StringTermFormation'
-          t.string_value = current_account.try(tf.name.to_sym)
-        end
+        get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
         t.save
       end
     end
@@ -55,9 +51,7 @@ class ProductsController < ApplicationController
     @form = @product.form
     @form_formation.term_formations.each do |tf|
       t = @form.terms.where(term_formation: tf).first
-      if tf.type == 'StringTermFormation'
-        t.string_value = params[tf.name.to_sym]
-      end
+      get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
       t.save
     end
     redirect_to contest_category_contest_product_path(@contest_category, @contest, @product)
