@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
       @form_formation.term_formations.each do |tf|
         t = @form.terms.build(term_formation: tf)
         if tf.type == 'StringTermFormation'
-          t.string_value = current_account.send(tf.name.to_sym)
+          t.string_value = current_account.try(tf.name.to_sym)
         end
         t.save
       end

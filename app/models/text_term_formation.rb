@@ -1,0 +1,2 @@
+class TextTermFormation < TermFormation
+end

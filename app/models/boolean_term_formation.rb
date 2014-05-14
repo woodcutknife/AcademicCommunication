@@ -1,0 +1,2 @@
+class BooleanTermFormation < TermFormation
+end
