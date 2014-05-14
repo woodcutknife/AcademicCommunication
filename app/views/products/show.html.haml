@@ -1,0 +1,37 @@
+%h2.page-header
+  = @product.attr(:name)
+  %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+%ul#productTab.nav.nav-tabs
+  %li.active
+    %a{:href => '#info', :'data-toggle' => 'tab'} Info
+  - @product.profiles.each_with_index do |profile, index|
+    %li
+      %a{:href => "#profile#{index}", :'data-toggle' => 'tab'}= "Profile #{index}"
+#productContent.tab-content
+  %div#info.tab-pane.fade.in.active
+    - if can?(:update, @product)
+      %br
+      = link_to 'Edit this product', edit_contest_category_contest_product_path(@contest_category, @contest, @product), class: 'btn btn-info'
+      %br
+    %br
+    %table.table
+      - @product.form.terms.each do |t|
+        %tr
+          %th= t.term_formation.name.humanize
+          %td
+            - if t.term_formation.type == 'StringTermFormation'
+              = t.string_value
+  - @product.profiles.each_with_index do |profile, index|
+    %div.tab-pane.fade{:id => "profile#{index}"}
+      - if can?(:update, profile)
+        %br
+        = link_to 'Edit this profile', root_path, class: 'btn btn-info'
+        %br
+      %br
+      %table.table
+        - profile.form.terms.each do |t|
+          %tr
+            %th= t.term_formation.name.humanize
+            %td
+              - if t.term_formation.type == 'StringTermFormation'
+                = t.string_value

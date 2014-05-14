@@ -9,9 +9,11 @@
       %th #
       %th Type
       %th Name
+      %th Required
   %tbody
     - @form_formation.term_formations.each do |term_formation|
       %tr
         %td= term_formation.id
         %td= term_formation.type
         %td= term_formation.name
+        %td= term_formation.required?

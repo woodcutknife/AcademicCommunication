@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512142453) do
+ActiveRecord::Schema.define(version: 20140514092814) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140512142453) do
     t.integer  "form_formation_id"
     t.string   "type"
     t.string   "name"
+    t.boolean  "required"
   end
 
   add_index "term_formations", ["form_formation_id"], name: "index_term_formations_on_form_formation_id"
@@ -129,8 +130,11 @@ ActiveRecord::Schema.define(version: 20140512142453) do
     t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "string_value"
+    t.integer  "term_formation_id"
   end
 
   add_index "terms", ["form_id"], name: "index_terms_on_form_id"
+  add_index "terms", ["term_formation_id"], name: "index_terms_on_term_formation_id"
 
 end
