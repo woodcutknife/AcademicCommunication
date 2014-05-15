@@ -7,7 +7,7 @@
   .panel-heading
     %h3.panel-title= "#0: #{@topic.title}"
   .panel-body
-    %p= @topic.content
+    %p= @topic.content.html_safe
   .panel-footer
     Created by
     %b= @topic.account.email
@@ -21,7 +21,7 @@
         - if can? :destroy, comment
           %span.pull-right= link_to 'Delete', contest_category_contest_forum_topic_comment_path(@contest_category, @contest, @topic, comment), method: :delete, data: { confirm: 'Are you sure you want to delete this?' }
     .panel-body
-      %p= comment.content
+      %p= comment.content.html_safe
     .panel-footer
       Created by
       %b= comment.account.email
@@ -31,6 +31,6 @@
 %h4 New Comment
 = simple_form_for(@topic.comments.build, url: contest_category_contest_forum_topic_comments_path(@contest_category, @contest, @topic)) do |f|
   = f.input :title, required: true, input_html: { class: 'form-control' }
-  = f.input :content, input_html: { class: 'form-control' }
+  = f.input :content, as: :ckeditor, input_html: { ckeditor: { toolbar: 'MyToolbar' }, class: 'form-control' }
   %br
   = f.submit class: 'btn btn-primary'
