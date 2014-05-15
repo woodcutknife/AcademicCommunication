@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515001727) do
+ActiveRecord::Schema.define(version: 20140515011119) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -91,15 +91,27 @@ ActiveRecord::Schema.define(version: 20140515001727) do
 
   add_index "pages", ["contest_id"], name: "index_pages_on_contest_id"
 
+  create_table "product_categories", force: true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_categories", ["contest_id"], name: "index_product_categories_on_contest_id"
+
   create_table "products", force: true do |t|
     t.integer  "contest_id"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "product_category_id"
   end
 
   add_index "products", ["account_id"], name: "index_products_on_account_id"
   add_index "products", ["contest_id"], name: "index_products_on_contest_id"
+  add_index "products", ["product_category_id"], name: "index_products_on_product_category_id"
 
   create_table "profiles", force: true do |t|
     t.integer  "account_id"

@@ -18,13 +18,24 @@ class Ability
       can [:read, :update], FormFormation do |form_formation|
         form_formation.contest.contest_category.admins.include? account
       end
-      can :manage, [Product, Profile]
+      can [:read, :update], ProductCategory do |product_category|
+        product_category.contest.contest_category.admins.include? account
+      end
+      can [:read, :update, :destroy], Product do |product|
+        product.contest.contest_category.admins.include? account
+      end
+      can [:read, :update, :destroy], Profile do |profile|
+        profile.product.contest.contest_category.admins.include? account
+      end
     end
 
     if account.role?(:judge)
       can :read, Contest
       can :read, Product do |product|
         product.accounts.include? account
+      end
+      can :update, Result do |result|
+        result.judges.include? account
       end
     end
 

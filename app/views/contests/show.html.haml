@@ -12,6 +12,9 @@
     - if can? :read, Product
       = link_to 'Products', contest_category_contest_products_path(@contest_category, @contest)
   %li
+    - if can?(:update, ProductCategory) or (current_account and current_account.role?(:contest_admin) and @contest_category.admins.include?(current_account))
+      = link_to 'Product categories', contest_category_contest_product_categories_path(@contest_category, @contest)
+  %li
     - if can?(:update, Page) or (current_account and current_account.role?(:contest_admin) and @contest_category.admins.include?(current_account))
       = link_to 'Pages', contest_category_contest_pages_path(@contest_category, @contest)
   - if can?(:update, FormFormation) or (current_account and current_account.role?(:contest_admin) and @contest_category.admins.include?(current_account))

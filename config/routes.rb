@@ -22,6 +22,9 @@ Rails.application.routes.draw do
         concerns :can_destroy_multiple
         resources :profiles, except: [:index, :show]
       end
+      resources :product_categories, except: [:show] do
+        concerns :can_destroy_multiple
+      end
     end
   end
 
