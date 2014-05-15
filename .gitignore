@@ -16,3 +16,9 @@
 /tmp
 
 /public
+
+/config/unicorn.rb
+
+/init.sh
+
+/shared
