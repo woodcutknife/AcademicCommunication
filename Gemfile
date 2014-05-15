@@ -61,9 +61,5 @@ gem 'mini_magick'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-# Use Forem to build forums
-gem 'forem', :github => "radar/forem", :branch => "rails4"
-gem 'kaminari', '0.15.1'
-
 # Use CKEditor for text editing
 gem 'ckeditor'
