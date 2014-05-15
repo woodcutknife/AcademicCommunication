@@ -27,10 +27,11 @@ class Ability
       can [:read, :update, :destroy], Profile do |profile|
         profile.product.contest.contest_category.admins.include? account
       end
+      can :manage, Post
     end
 
     if account.role?(:judge)
-      can :read, Contest
+      can :read, [Contest, Post]
       can :read, Product do |product|
         product.judges.include? account
       end
@@ -40,7 +41,7 @@ class Ability
     end
 
     if account.role?(:user)
-      can :read, Contest
+      can :read, [Contest, Post]
       can :create, Product
       can [:read, :update], Product do |product|
         product.accounts.include? account
@@ -51,7 +52,7 @@ class Ability
       end
     end
 
-    can :read, Contest
+    can :read, [Contest, Post]
 
     # Define abilities for the passed in user here. For example:
     #

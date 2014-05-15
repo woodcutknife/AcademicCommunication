@@ -1,0 +1,14 @@
+%h2.page-header
+  = @post.title
+  %small
+    = link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+    = link_to 'Back to news list', contest_category_contest_posts_path(@contest_category, @contest), class: 'btn btn-default pull-right'
+%table.table
+  %tr
+    %th Created at:
+    %td= @post.created_at
+- if can? :update, @post
+  = link_to 'Edit this post', edit_contest_category_contest_post_path(@contest_category, @contest, @post), class: 'btn btn-info'
+  %br
+%br
+%p= @post.content.html_safe

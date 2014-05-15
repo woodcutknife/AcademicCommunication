@@ -1,0 +1,6 @@
+= simple_form_for([@contest_category, @contest, @post]) do |f|
+  = f.input :title, required: true, autofocus: true, input_html: { class: 'form-control' }
+  = f.input :content, input_html: { class: 'form-control' }
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

@@ -4,4 +4,5 @@ class Contest < ActiveRecord::Base
   has_many :form_formations, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :product_categories, dependent: :destroy
+  has_many :posts, dependent: :destroy
 end

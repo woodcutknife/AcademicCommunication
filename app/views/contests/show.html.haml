@@ -2,6 +2,9 @@
   = @contest.name
   %small= link_to 'Back to contest list', contest_category_contests_path(@contest_category), class: 'btn btn-default pull-right'
 %ul#pageTab.nav.nav-tabs
+  %li
+    - if can? :read, Post
+      = link_to 'News', contest_category_contest_posts_path(@contest_category, @contest)
   - @pages.each do |page|
     %li{:class => ('active' if page.default?)}
       %a{:href => "##{page.slug}", :'data-toggle' => 'tab'}= page.title
