@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515011119) do
+ActiveRecord::Schema.define(version: 20140515024414) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140515011119) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_category_id"
+    t.string   "attachment"
   end
 
   add_index "products", ["account_id"], name: "index_products_on_account_id"
