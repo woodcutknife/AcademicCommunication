@@ -22,7 +22,7 @@ class ContestsController < ApplicationController
       @contest.form_formations.create(resource: 'profile')
       @contest.form_formations.create(resource: 'result')
       flash[:notice] = "Successfully created contest."
-      redirect_to [@contest_category, @contest]
+      redirect_to contest_category_contests_path(@contest_category)
     else
       render action: :new
     end
@@ -36,7 +36,7 @@ class ContestsController < ApplicationController
     @contest = @contest_category.contests.find(params[:id])
     if @contest.update(contest_params)
       flash[:notice] = "Successfully updated contest."
-      redirect_to [@contest_category, @contest]
+      redirect_to contest_category_contests_path(@contest_category)
     else
       render action: :edit
     end
