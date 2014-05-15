@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   resources :contest_categories, except: [:show] do
     concerns :can_destroy_multiple
     resources :contests do
+      resource :forum, only: [] do
+        resources :topics, except: [:new, :edit, :update] do
+          resources :comments, only: [:create, :destroy]
+        end
+      end
       concerns :can_destroy_multiple
       resources :pages, except: [:show]
       resources :posts

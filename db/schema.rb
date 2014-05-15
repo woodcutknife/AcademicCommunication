@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515080324) do
+ActiveRecord::Schema.define(version: 20140515105114) do
 
   create_table "accounts", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 20140515080324) do
     t.integer "account_id"
     t.integer "role_id"
   end
+
+  create_table "comments", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "topic_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["account_id"], name: "index_comments_on_account_id"
+  add_index "comments", ["topic_id"], name: "index_comments_on_topic_id"
 
   create_table "contest_categories", force: true do |t|
     t.string   "name"
@@ -77,6 +89,14 @@ ActiveRecord::Schema.define(version: 20140515080324) do
   add_index "forms", ["product_id"], name: "index_forms_on_product_id"
   add_index "forms", ["profile_id"], name: "index_forms_on_profile_id"
   add_index "forms", ["result_id"], name: "index_forms_on_result_id"
+
+  create_table "forums", force: true do |t|
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forums", ["contest_id"], name: "index_forums_on_contest_id"
 
   create_table "pages", force: true do |t|
     t.string   "title"
@@ -179,5 +199,17 @@ ActiveRecord::Schema.define(version: 20140515080324) do
 
   add_index "terms", ["form_id"], name: "index_terms_on_form_id"
   add_index "terms", ["term_formation_id"], name: "index_terms_on_term_formation_id"
+
+  create_table "topics", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "forum_id"
+  end
+
+  add_index "topics", ["account_id"], name: "index_topics_on_account_id"
+  add_index "topics", ["forum_id"], name: "index_topics_on_forum_id"
 
 end

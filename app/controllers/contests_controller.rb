@@ -21,6 +21,7 @@ class ContestsController < ApplicationController
       @contest.form_formations.create(resource: 'product')
       @contest.form_formations.create(resource: 'profile')
       @contest.form_formations.create(resource: 'result')
+      @contest.create_forum
       flash[:notice] = "Successfully created contest."
       redirect_to contest_category_contests_path(@contest_category)
     else

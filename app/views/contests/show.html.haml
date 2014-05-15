@@ -9,6 +9,8 @@
     %li{:class => ('active' if page.default?)}
       %a{:href => "##{page.slug}", :'data-toggle' => 'tab'}= page.title
   %li
+    = link_to 'Forum', contest_category_contest_forum_topics_path(@contest_category, @contest)
+  %li
     - if can? :create, Product
       = link_to 'New product', new_contest_category_contest_product_path(@contest_category, @contest)
   %li

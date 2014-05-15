@@ -28,6 +28,14 @@ class Ability
         profile.product.contest.contest_category.admins.include? account
       end
       can :manage, Post
+      can [:create, :read], Topic
+      can :destroy, Topic do |topic|
+        topic.forum.contest.contest_category.admins.include?(account)
+      end
+      can [:create, :read], Comment
+      can :destroy, Comment do |comment|
+        comment.topic.forum.contest.contest_category.admins.include?(account)
+      end
     end
 
     if account.role?(:judge)
@@ -38,6 +46,8 @@ class Ability
       can :update, Result do |result|
         result.judge == account
       end
+      can [:create, :read], Topic
+      can [:create, :read], Comment
     end
 
     if account.role?(:user)
@@ -50,9 +60,11 @@ class Ability
       can [:read, :update, :destroy], Profile do |profile|
         profile.product.accounts.include? account
       end
+      can [:create, :read], Topic
+      can [:create, :read], Comment
     end
 
-    can :read, [Contest, Post]
+    can :read, [Contest, Post, Topic]
 
     # Define abilities for the passed in user here. For example:
     #

@@ -10,6 +10,8 @@ class Account < ActiveRecord::Base
   has_many :products, through: :profiles
   has_many :results, dependent: :destroy
   has_many :tasks, through: :results, class_name: 'Product'
+  has_many :topics, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   after_create :set_default_role
 
