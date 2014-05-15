@@ -1,0 +1,12 @@
+%h2.page-header
+  Results
+  %small
+    = link_to "#{@product.product_category.slug}-#{@product.product_category.name} / #{@product.attr(:name)}", contest_category_contest_product_path(@contest_category, @contest, @product)
+    = link_to 'Back to product list', contest_category_contest_products_path(@contest_category, @contest), class: 'btn btn-default pull-right'
+- @results.each do |result|
+  %h4= "Judge #{result.judge.email}"
+  %table.table
+    - result.form.terms.each do |t|
+      %tr
+        %th= t.term_formation.name.humanize
+        %td= get_value_by_formation(t, t.term_formation)

@@ -1,0 +1,9 @@
+%h2.page-header
+  Edit result
+  %small= link_to "#{@product.product_category.slug}-#{@product.product_category.name} / #{@product.attr(:name)}", contest_category_contest_product_path(@contest_category, @contest, @product)
+- @form = @result.form
+= simple_form_for([@contest_category, @contest, @product, @result]) do |f|
+  = render 'shared/edit_with_form_formation'
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

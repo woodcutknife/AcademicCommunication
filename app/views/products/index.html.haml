@@ -16,6 +16,10 @@
         %th Id
         %th Name
         %th Product Category
+        - if current_account.try(:role?, :judge)
+          - form_formation = @contest.form_formations.where(resource: 'result').first
+          - form_formation.term_formations.each do |tf|
+            %th= tf.name.humanize
         %th
     %tbody
       - @products.each do |product|
@@ -24,13 +28,20 @@
           %td= link_to product.id, contest_category_contest_product_path(@contest_category, @contest, product)
           %td= link_to product.attr(:name), contest_category_contest_product_path(@contest_category, @contest, product)
           %td= "#{product.product_category.slug}-#{product.product_category.name}"
+          - if current_account.try(:role?, :judge)
+            - result = current_account.results.where(task: product).first
+            - form = result.form
+            - form_formation.term_formations.each do |tf|
+              %td= get_value_by_formation(form.terms.where(term_formation: tf).first, tf)
           %td
             = link_to 'View', contest_category_contest_product_path(@contest_category, @contest, product)
             - if can? :update, product
               = link_to 'Edit', edit_contest_category_contest_product_path(@contest_category, @contest, product)
             - if can? :destroy, product
               = link_to 'Delete', contest_category_contest_product_path(@contest_category, @contest, product), method: :delete, data: { confirm: 'Are you sure you want to delete this product?' }
-            - if current_account and current_account.role?(:judge)
+            - if current_account.try(:role?, :judge)
               - result = product.results.where(judge: current_account).first
               - if result
                 = link_to 'Edit result', edit_contest_category_contest_product_result_path(@contest_category, @contest, product, result)
+            - if current_account.try(:role?, :super_admin) or current_account.try(:role?, :contest_admin)
+              = link_to 'Show results', contest_category_contest_product_results_path(@contest_category, @contest, product)
