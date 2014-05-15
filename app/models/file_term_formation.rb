@@ -1,0 +1,2 @@
+class FileTermFormation < TermFormation
+end
