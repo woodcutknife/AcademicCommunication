@@ -1,6 +1,8 @@
 %h2.page-header
   = @product.attr(:name)
-  %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+  %small
+    = link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
+    = link_to 'Back to product list', contest_category_contest_products_path(@contest_category, @contest), class: 'btn btn-default pull-right'
 %ul#productTab.nav.nav-tabs
   %li.active
     %a{:href => '#info', :'data-toggle' => 'tab'} Info
@@ -10,9 +12,13 @@
   %li
     - if can?(:create, Profile)
       = link_to 'New profile', new_contest_category_contest_product_profile_path(@contest_category, @contest, @product)
+  %li
     - if current_account and current_account.role?(:judge)
       - result = @product.results.where(judge: current_account).first
       = link_to 'Edit result', edit_contest_category_contest_product_result_path(@contest_category, @contest, @product, result)
+  %li
+    - if can?(:update, @product) and @contest.upload?
+      = link_to 'Upload', '#upload', :'data-toggle' => 'tab'
 #productContent.tab-content
   %div#info.tab-pane.fade.in.active
     - if can?(:update, @product)
@@ -21,6 +27,14 @@
       %br
     %br
     %table.table
+      %tr
+        %th Attachment
+        %td
+          - if @product.attachment?
+            = link_to 'Download', @product.attachment_url
+      %tr
+        %th Slug
+        %td= @product.slug
       %tr
         %th Product Category
         %td= "#{@product.product_category.slug}-#{@product.product_category.name}"
@@ -44,3 +58,10 @@
           %tr
             %th= t.term_formation.name.humanize
             %td= get_value_by_formation(t, t.term_formation)
+  - if @contest.upload?
+    %div#upload.tab-pane.fade
+      %br
+      = simple_form_for([@contest_category, @contest, @product]) do |f|
+        = f.input :attachment, as: :file
+        %br
+        = f.submit class: 'btn btn-primary'

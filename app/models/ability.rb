@@ -42,7 +42,7 @@ class Ability
     if account.role?(:user)
       can :read, Contest
       can :create, Product
-      can [:read, :update, :destroy], Product do |product|
+      can [:read, :update], Product do |product|
         product.accounts.include? account
       end
       can :create, Profile

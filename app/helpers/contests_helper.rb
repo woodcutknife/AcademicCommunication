@@ -1,5 +1,5 @@
 module ContestsHelper
   def contest_display_fields
-    [:name]
+    [:name, :upload?]
   end
 end

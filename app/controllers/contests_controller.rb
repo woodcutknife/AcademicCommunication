@@ -62,7 +62,7 @@ class ContestsController < ApplicationController
   end
 
   def contest_params
-    params[:contest].permit(:name)
+    params[:contest].permit(:name, :upload)
   end
 
   private

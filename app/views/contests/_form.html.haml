@@ -1,5 +1,7 @@
 = simple_form_for([@contest_category, @contest]) do |f|
   = f.input :name, required: true, autofocus: true, input_html: { class: 'form-control' }
+  %label.checkbox
+    = f.input :upload, as: :boolean
   %br
   = f.submit class: 'btn btn-primary'
   = link_to 'Cancel', :back, class: 'btn btn-default'

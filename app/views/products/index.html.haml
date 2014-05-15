@@ -14,6 +14,7 @@
       %tr
         %th
         %th Id
+        %th Slug
         %th Name
         %th Product Category
         - if current_account.try(:role?, :judge)
@@ -26,6 +27,7 @@
         %tr
           %td= check_box_tag "product_ids[]", product.id
           %td= link_to product.id, contest_category_contest_product_path(@contest_category, @contest, product)
+          %td= product.slug
           %td= link_to product.attr(:name), contest_category_contest_product_path(@contest_category, @contest, product)
           %td= "#{product.product_category.slug}-#{product.product_category.name}"
           - if current_account.try(:role?, :judge)

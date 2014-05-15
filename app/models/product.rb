@@ -6,6 +6,8 @@ class Product < ActiveRecord::Base
   has_many :judges, through: :results, class_name: 'Account'
   has_one :form, dependent: :destroy
   belongs_to :product_category
+  mount_uploader :attachment, AttachmentUploader
+  before_save :set_slug
 
   def attr(name)
     tf = self.contest.form_formations.where(resource: 'product').first.term_formations.where(name: name).first
@@ -14,6 +16,15 @@ class Product < ActiveRecord::Base
   end
 
   private
+
+  def set_slug
+    if self.slug
+      num = self.slug.split('-')[-1]
+    else
+      num = self.product_category.products.size
+    end
+    self.slug = "#{self.product_category.slug}-#{num}"
+  end
 
   def get_value_by_formation(object, formation)
     type_name = formation.type.tableize.split('_')[0]

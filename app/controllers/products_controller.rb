@@ -81,7 +81,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params[:product].permit(:product_category_id, :judge_ids => [])
+    params[:product].permit(:attachment, :product_category_id, :judge_ids => [])
   end
 
   private

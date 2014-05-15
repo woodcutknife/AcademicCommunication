@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
 
   def get_assignment_by_formation(object, formation)
     type_name = formation.type.tableize.split('_')[0]
-    lambda { |val| object.send("#{type_name}_value=".to_sym, val) }
+    lambda { |val| object.send("#{type_name}_value=".to_sym, val) unless val.nil? }
   end
 end
