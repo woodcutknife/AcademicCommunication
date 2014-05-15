@@ -6,7 +6,6 @@ class Product < ActiveRecord::Base
   has_many :judges, through: :results, class_name: 'Account'
   has_one :form, dependent: :destroy
   belongs_to :product_category
-  mount_uploader :attachment, AttachmentUploader
 
   def attr(name)
     tf = self.contest.form_formations.where(resource: 'product').first.term_formations.where(name: name).first
