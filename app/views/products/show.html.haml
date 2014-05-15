@@ -17,6 +17,9 @@
       %br
     %br
     %table.table
+      %tr
+        %th Product Category
+        %td= "#{@product.product_category.slug}-#{@product.product_category.name}"
       - @product.form.terms.each do |t|
         %tr
           %th= t.term_formation.name.humanize

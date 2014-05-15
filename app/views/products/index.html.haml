@@ -15,6 +15,7 @@
         %th
         %th Id
         %th Name
+        %th Product Category
         %th
     %tbody
       - @products.each do |product|
@@ -22,6 +23,7 @@
           %td= check_box_tag "product_ids[]", product.id
           %td= link_to product.id, contest_category_contest_product_path(@contest_category, @contest, product)
           %td= link_to product.attr(:name), contest_category_contest_product_path(@contest_category, @contest, product)
+          %td= "#{product.product_category.slug}-#{product.product_category.name}"
           %td
             = link_to 'View', contest_category_contest_product_path(@contest_category, @contest, product)
             - if can? :update, product

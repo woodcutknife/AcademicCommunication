@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = @contest.products.create
+    @product = @contest.products.create(product_params)
     @form_formation = @contest.form_formations.where(resource: 'product').first
     @form = @product.create_form
     @form_formation.term_formations.each do |tf|
@@ -54,7 +54,11 @@ class ProductsController < ApplicationController
       get_assignment_by_formation(t, tf).call params[tf.name.to_sym]
       t.save
     end
-    redirect_to contest_category_contest_product_path(@contest_category, @contest, @product)
+    if @product.update(product_params)
+      redirect_to contest_category_contest_product_path(@contest_category, @contest, @product)
+    else
+      render action: :edit
+    end
   end
 
   def destroy
@@ -74,6 +78,10 @@ class ProductsController < ApplicationController
     end
     flash[:notice] = "Successfully deleted products."
     redirect_to contest_category_contest_products_path(@contest_category, @contest)
+  end
+
+  def product_params
+    params[:product].permit(:product_category_id)
   end
 
   private

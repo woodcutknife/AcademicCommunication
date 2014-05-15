@@ -2,6 +2,8 @@
   New product
   %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
 = simple_form_for([@contest_category, @contest, @product]) do |f|
+  = f.label :product_category_id, required: true
+  = f.select :product_category_id, options_for_select(@contest.product_categories.map { |c| ["#{c.slug}-#{c.name}", c.id] }), {}, { class: 'form-control' }
   = render 'shared/new_with_form_formation'
   %br
   = f.submit class: 'btn btn-primary'
