@@ -52,3 +52,11 @@ gem 'cocoon'
 
 # Use Simple Form to create forms
 gem 'simple_form'
+
+# Use CarrierWave to handle file uploading
+gem 'carrierwave'
+gem 'mini_magick'
+
+# Use DelayedJob to handle background jobs
+gem 'delayed_job_active_record'
+gem 'daemons'

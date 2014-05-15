@@ -7,10 +7,6 @@ class ResultsController < ApplicationController
     @results = @product.results
   end
 
-  def show
-    @result = @product.results.find(params[:id])
-  end
-
   def edit
     @result = @product.results.find(params[:id])
     @form_formation = @contest.form_formations.where(resource: 'result').first
