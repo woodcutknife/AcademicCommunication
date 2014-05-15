@@ -1,3 +1,6 @@
 == AcademicCommunication
 
 AcademicCommunication is designed for holding contests, releasing information and academic discussion.
+
+* Ruby Version: 2.1.0
+* Rails Version: 4.1.0
