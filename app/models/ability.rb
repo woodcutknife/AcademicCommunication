@@ -32,10 +32,10 @@ class Ability
     if account.role?(:judge)
       can :read, Contest
       can :read, Product do |product|
-        product.accounts.include? account
+        product.judges.include? account
       end
       can :update, Result do |result|
-        result.judges.include? account
+        result.judge == account
       end
     end
 

@@ -8,7 +8,11 @@
     %li
       %a{:href => "#profile#{index}", :'data-toggle' => 'tab'}= "Profile #{index}"
   %li
-    = link_to 'New profile', new_contest_category_contest_product_profile_path(@contest_category, @contest, @product)
+    - if can?(:create, Profile)
+      = link_to 'New profile', new_contest_category_contest_product_profile_path(@contest_category, @contest, @product)
+    - if current_account and current_account.role?(:judge)
+      - result = @product.results.where(judge: current_account).first
+      = link_to 'Edit result', edit_contest_category_contest_product_result_path(@contest_category, @contest, @product, result)
 #productContent.tab-content
   %div#info.tab-pane.fade.in.active
     - if can?(:update, @product)

@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     elsif current_account.role?(:user)
       @products = current_account.products.where(contest: @contest)
     elsif current_account.role?(:judge)
-      @products = current_account.products.where(contest: @contest)
+      @products = current_account.tasks.where(contest: @contest)
     end
   end
 
@@ -81,7 +81,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params[:product].permit(:product_category_id)
+    params[:product].permit(:product_category_id, :judge_ids => [])
   end
 
   private
