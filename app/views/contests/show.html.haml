@@ -1,5 +1,6 @@
 %h2.page-header
   = @contest.name
+  %small= link_to 'Back to contest list', contest_category_contests_path(@contest_category), class: 'btn btn-default pull-right'
 %ul#pageTab.nav.nav-tabs
   - @pages.each do |page|
     %li{:class => ('active' if page.default?)}

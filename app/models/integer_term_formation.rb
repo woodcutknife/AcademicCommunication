@@ -1,0 +1,2 @@
+class IntegerTermFormation < TermFormation
+end

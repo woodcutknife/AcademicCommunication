@@ -5,7 +5,6 @@
       = text_field_tag(tf.name.to_sym, '', class: 'form-control', required: tf.required?)
     - else
       - if tf.single?
-        = label_tag_with_required_option(tf.name, tf.required?)
         = select_tag(tf.name.to_sym, options_for_select(tf.choises.split(':').map { |x| [x, x] }), { class: 'form-control' })
       - else
   - elsif tf.type == 'TextTermFormation'
@@ -15,3 +14,6 @@
     %label.checkbox
       = check_box_tag(tf.name.to_sym)
       = label_tag_with_required_option(tf.name, tf.required?)
+  - elsif tf.type == 'IntegerTermFormation'
+    = label_tag_with_required_option(tf.name, tf.required?)
+    = number_field_tag(tf.name.to_sym, nil, class: 'form-control', required: tf.required?)

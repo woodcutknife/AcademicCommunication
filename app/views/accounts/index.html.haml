@@ -12,7 +12,6 @@
         - account_display_fields.map { |f| f.to_s.humanize }.each do |f|
           %th= f
         %th Roles
-        %th Contest Categories
         %th
     %tbody
       - @accounts.each do |account|
@@ -22,7 +21,6 @@
           - account_display_fields.each do |f|
             %td= account.send(f)
           %td= account.roles.map { |r| r.name }.join(':')
-          %td= account.contest_categories.map { |c| c.name }.join(':')
           %td
             = link_to 'View', account_path(account)
             = link_to 'Edit', edit_account_path(account)

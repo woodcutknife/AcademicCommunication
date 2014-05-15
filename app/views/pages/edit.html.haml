@@ -1,4 +1,4 @@
 %h2.page-header
   Edit page
-  %small= @contest.name
+  %small= link_to @contest.name, contest_category_contest_path(@contest_category, @contest)
 = render 'form'
