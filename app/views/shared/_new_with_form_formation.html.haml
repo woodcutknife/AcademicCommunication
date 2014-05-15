@@ -17,6 +17,3 @@
   - elsif tf.type == 'IntegerTermFormation'
     = label_tag_with_required_option(tf.name, tf.required?)
     = number_field_tag(tf.name.to_sym, nil, class: 'form-control', required: tf.required?)
-  - elsif tf.type == 'FileTermFormation'
-    = label_tag_with_required_option(tf.name, tf.required?)
-    = file_field_tag(tf.name.to_sym)

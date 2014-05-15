@@ -15,7 +15,3 @@
     = label_tag_with_required_option(tf.name, tf.required?)
     - t = tf.terms.where(form: @form).first
     = number_field_tag(tf.name.to_sym, t.integer_value, class: 'form-control', required: tf.required?)
-  - elsif tf.type == 'FileTermFormation'
-    = label_tag_with_required_option(tf.name, tf.required?)
-    - t = tf.terms.where(form: @form).first
-    = file_field_tag(tf.name.to_sym)
